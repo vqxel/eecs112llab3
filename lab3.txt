@@ -1,0 +1,112 @@
+# Template for Lab 3. You should put your codes for programs 1.1 1.2 2.1 2.2 3.1 3.2 4.1 4.3 here. 
+
+# File Name: lab3.txt
+
+# Please read instructions carefully:
+
+# 1. Use hash sign (#) for comments.
+
+# 2. Add your code and comments between provided "begin" and "end" for each program. Do NOT change other parts of this template.
+
+# 3. Name this file "lab3.txt". 
+
+# 4. For assembly code, follow section 1.2 of the lab manual as example (but only use instructions we defined in lab 2); pay close attention to how R, I, J instructions, lw and sw are used.
+# Example:
+# add $t1, $t3, $t2 #comments if needed
+# addi $t1, $zero, 5 #comments if needed
+# lw $t2, 24($s0) #comments if needed
+
+# When referring to registers, use the as instructed in the lab manual, such as $REGISTER_NAME. e.g. $zero, $s0, $t0.
+# See the beginning of section 3 for more details.
+
+# 5.The initial label for each program is provided, but you can add more labels if needed. 
+
+# 6. For machine code, use 32 bits binary numbers. 
+# Do not add 32'b prefix or ; at the end.
+# Example:
+# 00100001011010010000000100100011 #comments if needed
+# 00000001011010100100100000100000 #comments if needed
+
+#
+# Program 1
+program_1_1: # this is the label for the assembly program
+# -------- begin your MIPS assembly code --------
+add $t0, $s2, $s3 # t0 = g + h
+add $t1, $s4, $s0 # t1 = i + j
+sub $s1, $t0, $t1 # f = t0 - t1
+# -------- end ----------------------------------
+
+#
+# Program 1.2
+# -------- begin your MIPS Machine code ---------
+00000010010100110100000000100000
+00000010100100000100100000100000
+00000001000010011000100000100010
+# -------- end ----------------------------------
+
+#
+# Program 2
+program_2_1:
+# -------- begin your MIPS assembly code --------
+beq $s4, $s0, 2 # if (i == j) branch to SUB inst
+add $s1, $s2, $s3 # if (i != j), f = g + h
+beq $zero, $zero, 1 # if (i != j) skip over SUB inst
+sub $s1, $s2, $s3 # f = g - h 
+# -------- end ----------------------------------
+
+#
+# Program 2.2
+# -------- begin your MIPS Machine code ---------
+00010010100100000000000000000010
+00000010010100111000100000100000
+00010000000000000000000000000001
+00000010010100111000100000100010
+# -------- end ----------------------------------
+
+#
+# Program 3
+program_3_1:
+# -------- begin your MIPS assembly code --------
+sll $t1, $t0, 2 # i * 4 to convert it to word value
+add $t2, $s2, $t1 # calculate new memory address for save + 4i
+lw $t3, ($t2) # load memory at save[i]
+beq $t3, $s1, 2 # if (save[i] == k) branch to after program
+addi $t0, $t0, 1 # increment i
+beq $zero, $zero, -6 # loop back to start of loop logic
+# -------- end ----------------------------------
+
+#
+# Program 3.2
+# -------- begin your MIPS Machine code ---------
+11000001000000000100100010000000
+00000010010010010101000000100000
+10001101010010110000000000000000
+00010001011100010000000000000010
+00100001000010000000000000000001
+00010000000000001111111111111010
+# -------- end ----------------------------------
+
+#
+# Program 4
+# -------- begin your MIPS Machine code ---------
+11000000101000000100000010000000
+00000000100010000100000000100000
+10001101000010010000000000000000
+10001101000010100000000000000100
+10101101000010100000000000000000
+10101101000010010000000000000100
+# -------- end ----------------------------------
+
+#
+# Program 4.3
+void program_4_3(){
+# -------- begin your C code --------------------
+# a1 is storing i (offset)
+# a0 is storing array's base address
+int arrayOne = array[i];       # lw instruction 1
+int arrayTwo = array[i + 1];   # lw instruction 2
+array[i] = arrayTwo;           # sw instruction 1
+array[i + 1] = arrayOne;       # sw instruction 2
+# -------- end ----------------------------------
+    return;
+}
